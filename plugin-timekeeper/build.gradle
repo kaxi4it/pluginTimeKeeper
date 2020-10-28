@@ -1,0 +1,37 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+apply plugin: 'com.novoda.bintray-release'  // 新增
+
+dependencies {
+    //gradle sdk
+    implementation gradleApi()
+    //groovy sdk
+    implementation localGroovy()
+    compileOnly 'com.android.tools.build:gradle:3.6.4'
+}
+
+repositories {
+    mavenCentral()
+}
+
+//group和version在后面使用自定义插件的时候会用到
+group='com.kaxi4it.plugin.timekeeper'
+version='1.0.0'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('C:/workspace/HelloPlugin/reposs'))
+        }
+    }
+}
+
+// 新增
+publish {
+    userOrg = 'kaxi4it'        //bintray.com用户名
+    groupId = 'com.kaxi4it.plugin.timekeeper'    //jcenter上的路径
+    artifactId = 'TimeKeeperPlugin'   //项目名称
+    publishVersion = '1.0.0'//版本号
+    desc = 'desc'//描述，自由填写
+    website = 'website' // 网址，自由填写
+}
